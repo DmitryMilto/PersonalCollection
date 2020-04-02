@@ -37,6 +37,8 @@ namespace PersonalCollections.Controllers
                     Email = model.Email,
                     UserName = model.Login,
                     Login = model.Login,
+                    DateBirth = model.DateBirth,
+                    City = model.City,
                     DateRegistration = DateTime.Now,
                     Status = true
                 };
@@ -87,11 +89,6 @@ namespace PersonalCollections.Controllers
         {
             if (ModelState.IsValid)
             {
-                //User user = await _userManager.FindByNameAsync(model.Login);
-                //if (user != null)
-                //{
-                //    if (!user.Block)
-                //    {
                 var result =
                 await _signInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, false);
 
@@ -124,7 +121,6 @@ namespace PersonalCollections.Controllers
         public async Task<IActionResult> Logout()
         {
             User user = await _userManager.FindByNameAsync(User.Identity.Name);
-            //user.Status = false;
             IdentityResult result = await _userManager.UpdateAsync(user);
 
             // удаляем аутентификационные куки
@@ -161,7 +157,6 @@ namespace PersonalCollections.Controllers
                 return View("Login", loginViewModel);
             }
 
-            // Get the login information about the user from the external login provider
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
@@ -171,8 +166,6 @@ namespace PersonalCollections.Controllers
                 return View("Login", loginViewModel);
             }
 
-            // If the user already has a login (i.e if there is a record in AspNetUserLogins
-            // table) then sign-in the user with this external login provider
             var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider,
                 info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
 
@@ -180,25 +173,22 @@ namespace PersonalCollections.Controllers
             {
                 return LocalRedirect(returnUrl);
             }
-            // If there is no record in AspNetUserLogins table, the user may not have
-            // a local account
             else
             {
-                // Get the email claim value
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
 
                 if (email != null)
                 {
-                    // Create a new user without password if we do not have a user already
                     var user = await _userManager.FindByEmailAsync(email);
 
                     if (user == null)
                     {
                         user = new User
                         {
-                            UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            UserName = info.Principal.FindFirstValue(ClaimTypes.Name),
                             Email = info.Principal.FindFirstValue(ClaimTypes.Email),
                             DateRegistration = DateTime.Now,
+                            DateBirth = DateTime.Now,
                             Status = true
 
                         };
@@ -213,11 +203,6 @@ namespace PersonalCollections.Controllers
 
                     return LocalRedirect(returnUrl);
                 }
-
-                // If we cannot find the user email we cannot continue
-                ViewBag.ErrorTitle = $"Email claim not received from: {info.LoginProvider}";
-                ViewBag.ErrorMessage = "Please contact support on Pragim@PragimTech.com";
-
                 return View("Error");
             }
         }

@@ -16,7 +16,7 @@
                     <img class="card-img-top img-fluid" src="@Url.Content(item.Image)" alt="image">
                     <div class="card-body">
                         <h5 class="title">@item.NameCollection</h5>
-                        @if (@item.Description.Length > 100)
+                        @*@if (@item.Description.Length > 100)
                         {
                             <p class="card-text">
                                 @item.Description.Substring(0, 100) ...
@@ -27,7 +27,7 @@
                             <p class="card-text">
                                 @item.Description
                             </p>
-                        }
+                        }*@
 
                         <a asp-action="DetailsCollecton" asp-route-id="@item.IdCollection" class="btn btn-primary">@Localizer["Detail"]</a>
                     </div>

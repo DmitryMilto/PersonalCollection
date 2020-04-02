@@ -12,6 +12,7 @@ namespace PersonalCollections.Models.ViewModel
         public string Description { get; set; }
         public int IdCollectionItem { get; set; }
         public bool like { get; set; }
+        public string Image { get; set; }
         public string NameCollection { get; set; }
     }
 }

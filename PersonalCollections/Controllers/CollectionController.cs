@@ -156,6 +156,7 @@ namespace PersonalCollections.Controllers
                 model.IdCollectionItem = item.IdCollectionItem;
                 model.NameCollection = item.CollectionItems.NameCollection;
                 model.IdItem = item.IdItem;
+                model.Image = item.CollectionItems.Image;
                 for (int i = 0; i < item.Likes.Count; i++)
                     if (item.Likes[i].UserName == User.Identity.Name)
                         model.like = true;
