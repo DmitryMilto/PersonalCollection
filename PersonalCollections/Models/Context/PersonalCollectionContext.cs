@@ -13,6 +13,7 @@ namespace PersonalCollections.Models
         public DbSet<CollectionItem> CollectionItems { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Thema> Themas { get; set; }
+        public DbSet<Like> Likes { get; set; }
         public PersonalCollectionContext(DbContextOptions<PersonalCollectionContext> options)
             : base(options)
         {

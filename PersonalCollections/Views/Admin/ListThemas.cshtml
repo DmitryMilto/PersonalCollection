@@ -5,12 +5,13 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">ListThemas</h1>
-    <a asp-action="CreateThema" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Create New</a>
+    <h1 class="h3 mb-0 text-gray-800">@Localizer["List"]</h1>
+    <a asp-action="CreateThema" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+    <i class="fas fa-plus fa-sm text-white-50"></i>@Localizer["Create"]</a>
 </div>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Таблица тем</h6>
+        <h6 class="m-0 font-weight-bold text-primary">@Localizer["Table"]</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -18,12 +19,11 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Name)
+                            @Localizer["Name"]
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Description)
+                            @Localizer["Description"]
                         </th>
-                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -31,12 +31,11 @@
                 <tfoot>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Name)
+                            @Localizer["List"]
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Description)
+                            @Localizer["Description"]
                         </th>
-                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -52,13 +51,10 @@
                             @Html.DisplayFor(modelItem => item.Description)
                         </td>
                         <td class="text-center">
-                            <a asp-action="Edit" asp-route-id="@item.IdThema">Edit</a>
+                            <a asp-action="Edit" asp-route-id="@item.IdThema">@Localizer["Edit"]</a>
                         </td>
                         <td class="text-center">
-                            <a asp-action="Details" asp-route-id="@item.IdThema">Details</a>
-                        </td>
-                        <td class="text-center">
-                            <a asp-action="Delete" asp-route-id="@item.IdThema">Delete</a>
+                            <a asp-action="Delete" asp-route-id="@item.IdThema">@Localizer["Delete"]</a>
                         </td>
                     </tr>
                     }

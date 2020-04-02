@@ -22,7 +22,7 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" asp-action="Index" asp-controller="Home">
                     <i class="fa fa-home fa-fw"></i>
                     <span>@Localizer["Home"]</span>
                 </a>
@@ -33,19 +33,19 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" asp-action="ListUsers">
+                <a class="nav-link" asp-action="ListUsers" asp-controller="Admin">
                     <i class="fas fa-fw fa-male"></i>
                     <span>@Localizer["Client"]</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-action="ListCollection">
+                <a class="nav-link" asp-action="ListCollection"  asp-controller="Admin">
                     <i class="fas fa-fw fa-book"></i>
                     <span>@Localizer["Collections"]</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-action="ListThemas">
+                <a class="nav-link" asp-action="ListThemas" asp-controller="Admin">
                     <i class="fas fa-fw fa-journal-whills"></i>
                     <span>@Localizer["Categories"]</span>
                 </a>

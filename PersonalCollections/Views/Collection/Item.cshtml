@@ -1,45 +1,60 @@
-﻿@model Item
+﻿@model LikeViewModel
 @{
-    ViewData["Title"] = "Item";
+    ViewData["Title"] = Model.NameItem;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Item</h1>
-<p class="d-none" id="isUserLike">@ViewBag.IsUserLike</p>
-<p class="d-none" id="idItem">@Model.IdItem</p>
-<table class="table table-responsive-sm table-bordered table-hover table-@ViewBag.Bg">
-    <thead>
-        <tr>
-            <th scope="col">yfpdfybt</th>
-            <th scope="col">Description</th>
-            <th scope="col">Лайки</th>
-            <th scope="col">Комментарии</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th scope="row">@Model.NameItem</th>
-            <th scope="row">@Model.Description</th>
-
-            <th scope="row">
-                @if (ViewBag.IsUserLike)
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">@Localizer["Home"]</a></li>
+        <li class="breadcrumb-item"><a asp-action="DetailsCollecton" asp-controller="Home" asp-route-id="@Model.IdCollectionItem">@Model.NameCollection</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.NameItem</li>
+    </ol>
+</nav>
+<div>
+    <main @*style="background: url('@Url.Content(Model.Image)')"*@>
+        <div class="page-header pb-10">
+            <div class="container-fluid">
+                <div class="page-header-content">
+                    <h1 class="page-header-title">
+                        <span>@Model.NameItem</span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-n10">
+            <div class="card">
+                <div class="card-header"> @Localizer["Description"]</div>
+                <div class="card-body">
+                    @Html.DisplayFor(model => model.Description)
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                @if (SignInManager.IsSignedIn(User))
                 {
-                    <img class="mr-2 like" src="~/img/LikePressed.png">
+                    <div class="nav-item dropdown no-arrow">
+                        @if (Model.like)
+                        {
+                            <a asp-controller="Collection" asp-action="LikeDelete" asp-route-id="@Model.IdItem" class="btn btn-danger btn-circle" type="submit">
+                                <i class="fas fa-heart"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Collection" asp-action="LikeUp" asp-route-id="@Model.IdItem" class="btn btn-info btn-circle" type="submit">
+                                <i class="fas fa-heart"></i>
+                            </a>
+                        }
+                    </div>
                 }
-                else
-                {
-                    <img class="mr-2 like" src="~/img/Like.png">
-                }
-                <span id="countLikes">@ViewBag.CountLikes</span>
-            </th>
-
-            <th scope="row">
-                <img class="mr-2" src="~/img/Comment.png">
-                <span id="countComments">@ViewBag.Comments.Count</span>
-            </th>
-        </tr>
-    </tbody>
-</table>
-
-<script src="~/js/signalr/dist/browser/signalr.min.js"></script>
-<script src="~/js/Item.js"></script>
+            </div>
+            <br />
+        </div>
+        <hr />
+    </main>
+</div>
+<nav>
+    <div class="text-right">
+        <a asp-action="DetailsCollecton" asp-controller="Home" asp-route-id="@Model.IdCollectionItem">@Localizer["Back"]</a>
+    </div>
+</nav>

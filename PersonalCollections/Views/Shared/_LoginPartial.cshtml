@@ -11,14 +11,14 @@
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 @Localizer["Profile"]
             </a>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" asp-action="EditUser" asp-controller="Manage">
                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                 @Localizer["Settings"]
             </a>
             @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
             {
                 <a asp-controller="admin" asp-action="ListCollection" class="dropdown-item">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i class="fas fa-user-astronaut fa-sm fa-fw mr-2 text-gray-400"></i>
                     @Localizer["Admin"]
                 </a>
             }

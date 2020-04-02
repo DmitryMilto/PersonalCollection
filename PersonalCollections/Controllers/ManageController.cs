@@ -32,14 +32,19 @@ namespace PersonalCollections.Controllers
         }
         public async Task<IActionResult> EditUser(string id)
         {
-            User user = await _userManager.FindByIdAsync(id);
+            User user;
+            if (id != null)
+                user = await _userManager.FindByIdAsync(id);
+            else
+                user = await _userManager.FindByNameAsync(User.Identity.Name);
+
             if (user == null)
             {
                 return NotFound();
             }
-            EditUserViewModel model = new EditUserViewModel 
-            { 
-                Id = user.Id, 
+            EditUserViewModel model = new EditUserViewModel
+            {
+                Id = user.Id,
                 LastName = user.LastName,
                 FirstName = user.FirstName,
                 City = user.City,

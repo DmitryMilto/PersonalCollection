@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PersonalCollections.Models;
+using PersonalCollections.Models.ViewModel;
 
 namespace PersonalCollections.Controllers
 {
@@ -120,7 +121,7 @@ namespace PersonalCollections.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index", "Manage");
         }
-        
+
         public async Task<IActionResult> DeleteCollection(int id)
         {
             CollectionItem collection = await db.CollectionItems.Include(x => x.Items).FirstOrDefaultAsync(x => x.IdCollection == id);
@@ -128,7 +129,15 @@ namespace PersonalCollections.Controllers
             {
                 foreach (Item item in collection.Items)
                 {
-                    db.Items.Remove(item);
+                    Item item1 = await db.Items.Include(x => x.Likes).FirstOrDefaultAsync(x => x.IdItem == item.IdItem);
+                    if (item1 != null)
+                    {
+                        foreach (Like like in item1.Likes)
+                        {
+                            db.Likes.Remove(like);
+                        }
+                        db.Items.Remove(item1);
+                    }
                 }
                 db.CollectionItems.Remove(collection);
             }
@@ -137,16 +146,50 @@ namespace PersonalCollections.Controllers
         }
         public async Task<IActionResult> Item(int id)
         {
-            ViewBag.AutorizeUser = await GetAutorizeUser();
-            User autorizeUser = await GetAutorizeUser();
-            Item item = await db.Items.Include(p => p.CollectionItems).FirstOrDefaultAsync(i => i.IdItem == id);
-            return View(item);
+            Item item = await db.Items.Include(p => p.CollectionItems).Include(x => x.Likes).FirstOrDefaultAsync(i => i.IdItem == id);
+            LikeViewModel model = new LikeViewModel();
+            if (item != null)
+            {
+                model.like = false;
+                model.NameItem = item.NameItem;
+                model.Description = item.Description;
+                model.IdCollectionItem = item.IdCollectionItem;
+                model.NameCollection = item.CollectionItems.NameCollection;
+                model.IdItem = item.IdItem;
+                for (int i = 0; i < item.Likes.Count; i++)
+                    if (item.Likes[i].UserName == User.Identity.Name)
+                        model.like = true;
+            }
+            return View(model);
         }
-        [NonAction]
-        public async Task<User> GetAutorizeUser()
+        public async Task<IActionResult> LikeUp(int id)
         {
-            string emailAutorizeUser = User.Identity.Name;
-            return await db.Users.FirstOrDefaultAsync(u => u.UserName == emailAutorizeUser);
+            //Like like = await db.Likes.FirstOrDefaultAsync(x => x.IdItem == id && x.UserName == User.Identity.Name);
+            Like like = new Like
+            {
+                IdItem = id,
+                Item = await db.Items.FirstOrDefaultAsync(x => x.IdItem == id),
+                UserName = User.Identity.Name
+            };
+            db.Likes.Add(like);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Item", new { id = like.IdItem});
+        }
+        public async Task<IActionResult> LikeDelete(int id)
+        {
+            Like like = await db.Likes.FirstOrDefaultAsync(x => x.IdItem == id && x.UserName == User.Identity.Name);
+            if(like != null)
+            {
+                db.Likes.Remove(like);
+            }
+            await db.SaveChangesAsync();
+            return RedirectToAction("Item", new { id = like.IdItem });
+        }
+        public async Task<IActionResult> UserCollection(string id)
+        {
+            ViewBag.Id = id;
+            var collection = db.CollectionItems.Where(x => x.IdUser == id).Include(x => x.Themas).Include(x => x.Items);
+            return View(collection);
         }
     }
 }

@@ -14,6 +14,10 @@ namespace PersonalCollections.Models
         public string Description { get; set; }
         public int IdCollectionItem { get; set; }
         public CollectionItem CollectionItems { get; set; }
-
+        public List<Like> Likes { get; set; }
+        public Item()
+        {
+            Likes = new List<Like>();
+        }
     }
 }

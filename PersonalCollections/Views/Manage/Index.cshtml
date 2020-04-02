@@ -7,9 +7,10 @@
     <div class="card-body">
         <div class="d-md-flex">
             <div class="nav flex-column nav-pills mr-4 mb-3 mb-sm-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-                <a asp-action="CreateCollection" asp-controller="Collection" class="nav-link" aria-controls="v-pills-home">Добавить коллекцию</a>
-                <a asp-action="EditUser" asp-controller="Manage" asp-route-id="@Model.Id" class="nav-link" aria-controls="v-pills-home">Добавить коллекцию</a>
+                <a asp-action="Index" asp-controller="Manage" asp-route-id="@Model.Id" class="nav-link active" aria-controls="v-pills-home">@Localizer["Home"]</a>
+                <a asp-action="CreateCollection" asp-controller="Collection" class="nav-link" aria-controls="v-pills-home">@Localizer["Add"]</a>
+                <a asp-action="EditUser" asp-controller="Manage" asp-route-id="@Model.Id" class="nav-link" aria-controls="v-pills-home">@Localizer["Setting"]</a>
+                <a asp-action="UserCollection" asp-controller="Collection" asp-route-id="@Model.Id" class="nav-link" aria-controls="v-pills-home">@Localizer["Collection"]</a>
 
             </div>
             <div class="tab-content" id="v-pills-tabContent">

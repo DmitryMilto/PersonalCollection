@@ -117,25 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Create" xml:space="preserve">
-    <value>Создать новую тему</value>
+  <data name="Add" xml:space="preserve">
+    <value>Add Collection</value>
   </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Удалить</value>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
   </data>
-  <data name="Description" xml:space="preserve">
-    <value>Описание</value>
+  <data name="Date" xml:space="preserve">
+    <value>Date of Birth</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Изменить</value>
+    <value>Save</value>
   </data>
-  <data name="List" xml:space="preserve">
-    <value>Список тем</value>
+  <data name="FirstName" xml:space="preserve">
+    <value>Name</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Имя</value>
+  <data name="Home" xml:space="preserve">
+    <value>Profile</value>
   </data>
-  <data name="Table" xml:space="preserve">
-    <value>Таблица тем</value>
+  <data name="LastName" xml:space="preserve">
+    <value>Surname</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>Settings</value>
   </data>
 </root>

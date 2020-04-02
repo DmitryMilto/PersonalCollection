@@ -10,10 +10,10 @@
     <div class="card-body">
         <div class="d-md-flex">
             <div class="nav flex-column nav-pills mr-4 mb-3 mb-sm-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a asp-action="Index" asp-controller="Manage" asp-route-id="@Model.Id" class="nav-link" aria-controls="v-pills-home">Home</a>
-                <a asp-action="CreateCollection" asp-controller="Collection" class="nav-link" aria-controls="v-pills-home">Добавить коллекцию</a>
-                <a asp-action="EditUser" asp-controller="Manage" asp-route-id="@Model.Id" class="nav-link active" aria-controls="v-pills-home">Добавить коллекцию</a>
-
+                <a asp-action="Index" asp-controller="Manage" asp-route-id="@Model.Id" class="nav-link" aria-controls="v-pills-home">@Localizer["Home"]</a>
+                <a asp-action="CreateCollection" asp-controller="Collection" class="nav-link" aria-controls="v-pills-home">@Localizer["Add"]</a>
+                <a asp-action="EditUser" asp-controller="Manage" asp-route-id="@Model.Id" class="nav-link active" aria-controls="v-pills-home">@Localizer["Setting"]</a>
+                <a asp-action="UserCollection" asp-controller="Collection" asp-route-id="@Model.Id" class="nav-link" aria-controls="v-pills-home">@Localizer["Collection"]</a>
             </div>
 
             <div class="tab-content" id="v-pills-tabContent">
@@ -26,23 +26,23 @@
                                     <input type="hidden" asp-for="Id" />
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="LastName" class="control-label">Имя</label>
+                                    <label asp-for="LastName" class="control-label">@Localizer["FirstName"]</label>
                                     <input type="text" asp-for="LastName" class="form-control" />
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="FirstName" class="control-label">Фамилия</label>
+                                    <label asp-for="FirstName" class="control-label">@Localizer["LastName"]</label>
                                     <input type="text" asp-for="FirstName" class="form-control" />
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="City" class="control-label">Город</label>
+                                    <label asp-for="City" class="control-label">@Localizer["City"]</label>
                                     <input type="text" asp-for="City" class="form-control" />
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="DateBirth" class="control-label">Год рождения</label>
+                                    <label asp-for="DateBirth" class="control-label">@Localizer["Date"]</label>
                                     <input type="date" asp-for="DateBirth" class="form-control" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" value="Сохранить" class="btn btn-outline-secondary" />
+                                    <input type="submit" value="@Localizer["Edit"]" class="btn btn-outline-secondary" />
                                 </div>
                             </form>
                         </div>
