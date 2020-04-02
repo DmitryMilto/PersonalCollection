@@ -1,0 +1,52 @@
+﻿@model PersonalCollections.Models.CollectionItem
+
+@{
+    ViewData["Title"] = "CreateCollection";
+    if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    else
+        Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CreateCollection</h1>
+
+<h4>CollectionItem</h4>
+<hr />
+<div class="row">
+    <div class="col">
+        <form asp-action="CreateCollection" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NameCollection" class="control-label"></label>
+                <input asp-for="NameCollection" class="form-control" />
+                <span asp-validation-for="NameCollection" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows = 5 ></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="file" name="uploadedFile" /><br>
+            </div>
+            <div class="form-group">
+                @Html.DropDownListFor(model => model.IdThema, ViewBag.Thema as SelectList, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+        {
+            <div>
+                <a asp-controller="Admin" asp-action="ListCollection">Back to List Adnin</a>
+            </div>
+        }
+        else
+        {
+            <div>
+                <a asp-controller="Manage" asp-action="Index">Back to List</a>
+            </div>
+        }
+    </div> 
+</div>

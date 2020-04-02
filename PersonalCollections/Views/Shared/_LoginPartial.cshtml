@@ -1,0 +1,49 @@
+﻿
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item dropdown no-arrow">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="text-dark fa fa-meh" id="userNickname">@User.Identity.Name</span>
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+            <a asp-area="Identity" asp-action="index" asp-controller="manage" class="dropdown-item">
+                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                @Localizer["Profile"]
+            </a>
+            <a class="dropdown-item" href="#">
+                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                @Localizer["Settings"]
+            </a>
+            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+            {
+                <a asp-controller="admin" asp-action="ListCollection" class="dropdown-item">
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                    @Localizer["Admin"]
+                </a>
+            }
+            <div class="dropdown-divider"></div>
+            <form class="form-inline" asp-area="Identity" asp-action="logout" asp-controller="account" )">
+                <button class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                    <i type="submit" class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    @Localizer["Logout"]
+                </button>
+            </form>
+        </div>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a asp-action="register" asp-controller="account" class="nav-link">
+            <i class="fa fa-registered fa-fw"></i>
+            @*<span>@Localizer["Regist"]</span>*@
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-action="login" asp-controller="account" class="nav-link">
+            <i class="fa fa-sign-in-alt fa-fw"></i>
+            @*<span>@Localizer["Login"]</span>*@
+        </a>
+    </li>
+}

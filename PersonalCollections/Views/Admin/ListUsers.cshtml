@@ -1,0 +1,44 @@
+﻿@model IEnumerable<User>
+@{
+    ViewData["Title"] = "ListUsers";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">All Users</h1>
+</div>
+
+<form method="post">
+    @if (Model.Any())
+    {
+        foreach (var user in Model)
+        {
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">@user.UserName</h6>
+                    <div class="nav-item dropdown no-arrow">
+                        <a asp-controller="Manage" asp-action="Index" asp-route-id="@user.Id" class="btn btn-info btn-circle">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        @if (user.Status)
+                        {
+                            <a asp-controller="Admin" asp-action="BlockUser" asp-route-id="@user.Id" type="submit" class="btn btn-warning btn-circle">
+                                <i class="fas fa-lock"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Admin" asp-action="UnBlockUser" asp-route-id="@user.Id" type="submit" class="btn btn-danger btn-circle">
+                                <i class="fas fa-lock-open"></i>
+                            </a>
+                        }
+                        <a asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.Id" type="submit" class="btn btn-danger btn-circle">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</form>
+

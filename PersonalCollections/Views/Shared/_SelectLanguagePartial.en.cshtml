@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    // получаем сервис IRequestCultureFeature
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    // получаем список поддерживаемых культур
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName })
+        .ToList();
+}
+
+    <form asp-controller="Home" asp-action="SetLanguage" style="margin-top:20px;"
+          asp-route-returnUrl="@Context.Request.Path"
+          method="post">
+
+        <button name="culture" onchange="this.form.submit();" value="en">
+            <img src="https://cdn2.iconfinder.com/data/icons/flags/flags/24/united-kingdom-great-britain.png" />
+        </button>
+        <button name="culture" onchange="this.form.submit();" value="ru">
+            <img src="https://cdn2.iconfinder.com/data/icons/flags/flags/16/Russian-Federation.png" />
+            
+        </button>
+    </form>

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<CollectionItem>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="text-center">
+    <h2 class="font-weight-bold">Gjgekzhyst</h2>
+    <hr class="mb-5" />
+</section>
+<div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 mt-5">
+                <div class="card card-bordered">
+                    <img class="card-img-top img-fluid" src="@Url.Content(item.Image)" alt="image">
+                    <div class="card-body">
+                        <h5 class="title">@item.NameCollection</h5>
+                        @if (@item.Description.Length > 100)
+                        {
+                            <p class="card-text">
+                                @item.Description.Substring(0, 100) ...
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="card-text">
+                                @item.Description
+                            </p>
+                        }
+
+                        <a asp-action="DetailsCollecton" asp-route-id="@item.IdCollection" class="btn btn-primary">@Localizer["Detail"]</a>
+                    </div>
+                </div>
+            </div>
+        }
+</div>
+

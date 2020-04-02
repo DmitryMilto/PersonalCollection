@@ -1,0 +1,45 @@
+﻿@model Item
+@{
+    ViewData["Title"] = "Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Item</h1>
+<p class="d-none" id="isUserLike">@ViewBag.IsUserLike</p>
+<p class="d-none" id="idItem">@Model.IdItem</p>
+<table class="table table-responsive-sm table-bordered table-hover table-@ViewBag.Bg">
+    <thead>
+        <tr>
+            <th scope="col">yfpdfybt</th>
+            <th scope="col">Description</th>
+            <th scope="col">Лайки</th>
+            <th scope="col">Комментарии</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">@Model.NameItem</th>
+            <th scope="row">@Model.Description</th>
+
+            <th scope="row">
+                @if (ViewBag.IsUserLike)
+                {
+                    <img class="mr-2 like" src="~/img/LikePressed.png">
+                }
+                else
+                {
+                    <img class="mr-2 like" src="~/img/Like.png">
+                }
+                <span id="countLikes">@ViewBag.CountLikes</span>
+            </th>
+
+            <th scope="row">
+                <img class="mr-2" src="~/img/Comment.png">
+                <span id="countComments">@ViewBag.Comments.Count</span>
+            </th>
+        </tr>
+    </tbody>
+</table>
+
+<script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/js/Item.js"></script>
