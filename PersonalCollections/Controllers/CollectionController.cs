@@ -80,13 +80,42 @@ namespace PersonalCollections.Controllers
             SelectList themas = new SelectList(db.Themas, "IdThema", "Name");
             ViewBag.Thema = themas;
             CollectionItem item = await db.CollectionItems.Include(x => x.Themas).Include(x => x.Items).FirstOrDefaultAsync(x => x.IdCollection == id);
+            ViewBag.Image = item.Image;
             return View(item);
         }
         [HttpPost]
-        public async Task<IActionResult> EditCollection(CollectionItem item)
+        public async Task<IActionResult> EditCollection(CollectionItem item, IFormFile uploadedFile, string Image)
         {
             Thema thema = await db.Themas.FirstOrDefaultAsync(p => p.IdThema == item.IdThema);
             item.Themas = thema;
+            string image = Image;
+            if (uploadedFile != null)
+            {
+                // путь к папке Files
+                string path = "/Files/" + uploadedFile.FileName;
+                // сохраняем файл в папку Files в каталоге wwwroot
+                if (image != path)
+                {
+                    item.Image = path;
+                    if (image != null)
+                    {
+                        string paths = _appEnvironment.WebRootPath + Image;
+                        FileInfo fileInf = new FileInfo(paths);
+                        if (fileInf.Exists)
+                        {
+                            fileInf.Delete();
+                        }
+                    }
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+                }
+                else
+                {
+                    item.Image = ViewBag.Image;
+                }  
+            }
             db.CollectionItems.Update(item);
             await db.SaveChangesAsync();
             return RedirectToAction("Index", "Manage");
