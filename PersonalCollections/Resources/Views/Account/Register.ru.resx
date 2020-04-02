@@ -117,28 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Come" xml:space="preserve">
-    <value>Sign in</value>
+  <data name="Account" xml:space="preserve">
+    <value>Уже есть аккаунт? Авторизоваться!</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Город</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Повторите пароль</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Create an Account!</value>
+    <value>Завести аккаунт!</value>
   </data>
-  <data name="Facebook" xml:space="preserve">
-    <value>Login with Facebook</value>
+  <data name="DateBirth" xml:space="preserve">
+    <value>Дата рождения</value>
   </data>
-  <data name="Google" xml:space="preserve">
-    <value>Login with Google</value>
+  <data name="Email" xml:space="preserve">
+    <value>Адрес электронной почты</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Фамилия</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Login</value>
+    <value>Логин</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Password</value>
+    <value>Пароль</value>
   </data>
-  <data name="Remember" xml:space="preserve">
-    <value>Remember Me</value>
+  <data name="Register" xml:space="preserve">
+    <value>Регистрация нового аккаунта</value>
   </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Welcome Back!</value>
+  <data name="RegisterAccount" xml:space="preserve">
+    <value>Регистрация Аккаунта</value>
   </data>
 </root>

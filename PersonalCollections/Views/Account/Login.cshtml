@@ -27,8 +27,9 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                    </div>
+                                        <h1 class="h4 text-gray-900 mb-4">@Localizer["Welcome"]/h1>
+
+</div>
                                     <form class="user form-signin" method="post" asp-controller="Account" asp-action="Login"
                                           asp-route-returnUrl="@Model.ReturnUrl">
                                         <div class="form-group">
@@ -40,8 +41,8 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember Me</label>
-                                            </div>
+                                                <label class="custom-control-label" for="customCheck">@Localizer["Remember"]</label>
+</div>
                                         </div>
                                         <button class="btn btn-lg btn-primary btn-block" type="submit">@Localizer["Come"]</button>
                                     </form>
@@ -49,18 +50,19 @@
                                     <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
 
                                         <button type="submit" name="provider" value="Google" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Login with Google
+                                            <i class="fab fa-google fa-fw"></i>@Localizer["Google"]
                                         </button>
 
                                         <button type="submit" name="provider" value="Facebook" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                            <i class="fab fa-facebook-f fa-fw"></i>@Localizer["Facebook"]
                                         </button>
 
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a asp-action="register" class="small">Create an Account!</a>
-                                    </div>
+                                        <a asp-action="register" class="small">@Localizer["Create"]</a>
+
+</div>
                                 </div>
                             </div>
                         </div>

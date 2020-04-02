@@ -117,28 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Come" xml:space="preserve">
-    <value>Sign in</value>
+  <data name="Back" xml:space="preserve">
+    <value>Вернуться назад</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Create an Account!</value>
+    <value>Создание новой темы</value>
   </data>
-  <data name="Facebook" xml:space="preserve">
-    <value>Login with Facebook</value>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
   </data>
-  <data name="Google" xml:space="preserve">
-    <value>Login with Google</value>
+  <data name="Name" xml:space="preserve">
+    <value>Имя</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
+  <data name="Submit" xml:space="preserve">
+    <value>Создать</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="Remember" xml:space="preserve">
-    <value>Remember Me</value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Welcome Back!</value>
+  <data name="Thema" xml:space="preserve">
+    <value>Новая тема</value>
   </data>
 </root>
