@@ -8,9 +8,7 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>CreateCollection</h1>
-
-<h4>CollectionItem</h4>
+<h1>@Localizer["Create"]</h1>
 <hr />
 <div class="row">
     <div class="col">
@@ -39,13 +37,13 @@
         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
         {
             <div>
-                <a asp-controller="Admin" asp-action="ListCollection">Back to List Adnin</a>
+                <a asp-controller="Admin" asp-action="ListCollection">@Localizer["BackAdmin"]Back to List Adnin</a>
             </div>
         }
         else
         {
             <div>
-                <a asp-controller="Manage" asp-action="Index">Back to List</a>
+                <a asp-controller="Manage" asp-action="Index">@Localizer["Back"]Back to List</a>
             </div>
         }
     </div> 

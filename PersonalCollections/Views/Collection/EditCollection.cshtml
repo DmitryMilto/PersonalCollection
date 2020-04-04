@@ -1,7 +1,7 @@
 ﻿@model PersonalCollections.Models.CollectionItem
 
 @{
-    ViewData["Title"] = "EditCollection";
+    ViewData["Title"] = Localizer["Title"] + Model.NameCollection;
     ViewData["Title"] = "CreateCollection";
     if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
         Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -10,15 +10,16 @@
     ViewBag.Image = Model.Image;
 }
 
-<h1>EditCollection</h1>
-
-<h4>CollectionItem</h4>
+    <h4>@Localizer["Info"] @Model.NameCollection</h4>
 <hr />
 <div class="row">
     <div class="col-8">
-        <form asp-action="EditCollection" enctype="multipart/form-data" >
+        <form asp-action="EditCollection" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdCollection" />
+            <div class="form-group d-block">
+                <input asp-for="IdUser" type="hidden" />
+            </div>
             <div class="form-group d-block">
                 <label asp-for="NameCollection" class="control-label"></label>
                 <input asp-for="NameCollection" class="form-control" />
@@ -37,7 +38,7 @@
                 <input type="file" name="uploadedFile" /><br>
                 @if (Model.Image == null)
                 {
-                    <div class="form-control-static">Нет картинки</div>
+                    <div class="form-control-static">@Localizer["Image"] Нет изображения</div>
                 }
                 else
                 {
@@ -45,7 +46,7 @@
                          src="@Url.Content(Model.Image)" />
                 }
             </div>
-            
+
             <div class="form-group d-block">
                 <input asp-route-Image="@Model.Image" type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -54,18 +55,24 @@
     <div class="col-4">
         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
         {
-        <a asp-controller="admin"  asp-action="ListCollection">Back to List</a>
+            <a asp-controller="admin" asp-action="ListCollection">
+                @Localizer["Back"]
+            </a>
         }
         else
         {
-        <a asp-controller="manage" asp-action="Index">Back to List</a>
+            <a asp-controller="manage" asp-action="Index">
+                @Localizer["Back"]
+            </a>
         }
     </div>
 </div>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">List Item's</h6>
-        <a asp-action="CreateItem" asp-route-id="@Model.IdCollection" class="d-none d-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i>Добавить коллекцию</a>
+        <a asp-action="CreateItem" asp-route-id="@Model.IdCollection" class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-plus fa-sm text-white-50"></i>@Localizer["Item"]
+        </a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -73,26 +80,22 @@
                 <thead>
                     <tr>
                         <th>
-                            Name
+                            @Localizer["Name"]
                         </th>
                         <th>
-                            Description
+                            @Localizer["Description"]
                         </th>
-                        <th></th>
-                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>
-                            Name
+                            @Localizer["Name"]
                         </th>
                         <th>
-                            Description
+                            @Localizer["Description"]
                         </th>
-                        <th></th>
-                        <th></th>
                         <th></th>
                     </tr>
                 </tfoot>
@@ -106,14 +109,9 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Description)
                             </td>
-                            <td class="text-center">
-                                <a asp-action="Edit" asp-route-id="@item.IdItem">Edit</a>
-                            </td>
-                            <td class="text-center">
-                                <a asp-action="Details" asp-route-id="@item.IdItem">Details</a>
-                            </td>
-                            <td class="text-center">
-                                <a asp-action="Delete" asp-route-id="@item.IdItem">Delete</a>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.IdItem" class="fa fa-edit">@Localizer["Edit"]</a>
+                                <a asp-action="Delete" asp-route-id="@item.IdItem" type="submit" class="fa fa-trash">@Localizer["Delete"]</a>
                             </td>
                         </tr>
                     }
@@ -123,5 +121,5 @@
     </div>
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">@Localizer["Back"]</a>
 </div>

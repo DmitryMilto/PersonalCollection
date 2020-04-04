@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<CollectionItem>
 @{
-    ViewData["Title"] = "UserCollection";
+    ViewData["Title"] = Localizer["Title"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="card mt-5">
@@ -39,10 +39,10 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <td>Название</td>
-                                            <td>Описание</td>
-                                            <td>Тема</td>
-                                            <td>Количество</td>
+                                            <td>@Localizer["Name"]</td>
+                                            <td>@Localizer["Description"]</td>
+                                            <td>@Localizer["Thema"]</td>
+                                            <td>@Localizer["Count"]</td>
                                             <td></td>
                                         </tr>
                                     </tfoot>

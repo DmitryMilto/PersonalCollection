@@ -15,15 +15,13 @@
         .ToList();
 }
 
-    <form asp-controller="Home" asp-action="SetLanguage" style="margin-top:20px;"
-          asp-route-returnUrl="@Context.Request.Path"
-          method="post" class="form-horizontal">
-        <button name="culture" onchange="this.form.submit();" value="ru">
-            <img src="https://cdn2.iconfinder.com/data/icons/flags/flags/24/Russian-Federation.png" />
-            
-        </button>
-        <button name="culture" onchange="this.form.submit();" value="en">
-            <img src="https://cdn2.iconfinder.com/data/icons/flags/flags/16/united-kingdom-great-britain.png" />
-        </button>
-
-    </form>
+<form asp-controller="Home" asp-action="SetLanguage" style="margin-top:20px;"
+      asp-route-returnUrl="@Context.Request.Path"
+      method="post" class="form-inline my-2 my-lg-0">
+    <button name="culture" onchange="this.form.submit();" value="en" class="bg-dark">
+        <img src="https://cdn2.iconfinder.com/data/icons/flags/flags/24/Russian-Federation.png" />
+    </button>
+    @*<button name="culture" onchange="this.form.submit();" value="en">
+        <img src="https://cdn2.iconfinder.com/data/icons/flags/flags/16/united-kingdom-great-britain.png" />
+    </button>*@
+</form>

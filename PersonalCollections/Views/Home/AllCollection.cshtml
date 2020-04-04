@@ -1,0 +1,63 @@
+﻿@model IndexViewModel
+
+@{
+    ViewData["Title"] = "AllCollection";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-bordered mt-3">
+    <div class="card-header bg-gradient-dark">
+        <h2 class="font-weight-bold">Популярные </h2>
+    </div>
+    <div class="card-body bg-gradient-light">
+        <div class="row">
+            @foreach (var item in Model.CollectionItems)
+            {
+                <div class="col-lg-4 col-md-6 mt-3">
+                    <div class="card card-bordered">
+                        <img class="card-img-top img-fluid" src="@Url.Content(item.Image)" alt="image">
+                        <div class="card-body">
+                            <h5 class="title">@item.NameCollection</h5>
+                            @if (item.Description != null)
+                            {
+                                @if (item.Description.Length > 100)
+                                {
+                                    <p class="card-text">
+                                        @item.Description.Substring(0, 100) ...
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="card-text">
+                                        @item.Description
+                                    </p>
+                                }
+                            }
+                            <a asp-action="DetailsCollecton" asp-route-id="@item.IdCollection" class="btn btn-primary">@Localizer["Detail"]</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="card-footer">
+        @if (Model.Page.HasPreviousPage)
+        {
+            <a asp-action="AllCollection"
+               asp-route-page="@(Model.Page.PageNumber - 1)"
+               class="btn btn-outline-dark">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Назад
+            </a>
+        }
+        @if (Model.Page.HasNextPage)
+        {
+            <a asp-action="AllCollection"
+               asp-route-page="@(Model.Page.PageNumber + 1)"
+               class="btn btn-outline-dark">
+                Вперед
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </a>
+        }
+    </div>
+</div>

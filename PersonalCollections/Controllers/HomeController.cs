@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PersonalCollections.Models;
+using PersonalCollections.Models.ViewModel;
 
 namespace PersonalCollections.Controllers
 {
@@ -26,8 +27,33 @@ namespace PersonalCollections.Controllers
 
         public async Task<IActionResult> Index()
         {
-            IQueryable<CollectionItem> users = db.CollectionItems.Include(x => x.Themas).Include(x => x.Items);
-            return View(await users.ToListAsync());
+            HomeViewModel model = new HomeViewModel();
+            List<CollectionItem> collectionItems = new List<CollectionItem>();
+            List<Item> Items = new List<Item>();
+            List<CollectionItem> collections = await db.CollectionItems.Include(x => x.Themas).Include(x => x.Items).OrderByDescending(x => x.Items.Count).ToListAsync();
+            if(collections.Count() > 6)
+            {
+                for (int i = 0; i < 6; i++)
+                    collectionItems.Add(collections[i]);
+                model.CollectionItems = collectionItems;
+            }
+            else
+            {
+                model.CollectionItems = collections;
+            }
+
+            List<Item> items = await db.Items.Include(x => x.CollectionItems).Include(x => x.Likes).OrderByDescending(x => x.Likes.Count()).ToListAsync();
+            if (items.Count() > 6)
+            {
+                for (int i = 0; i < 6; i++)
+                    Items.Add(items[i]);
+                model.Items = Items;
+            }
+            else
+            {
+                model.Items = items;
+            }   
+            return View(model);
         }
 
         public IActionResult Privacy()
@@ -51,7 +77,35 @@ namespace PersonalCollections.Controllers
             CollectionItem item = await db.CollectionItems.Include(x => x.Themas).Include(x => x.Items).FirstOrDefaultAsync(x => x.IdCollection == id);
             return View(item);
         }
+        private int pageSize = 6;
+        public async Task<IActionResult> AllCollection(int page = 1)
+        {
+            IQueryable<CollectionItem> source = db.CollectionItems.Include(x => x.Themas);
+            var count = await source.CountAsync();
+            var Collections = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
+            Page pageViewModel = new Page(count, page, pageSize);
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                Page = pageViewModel,
+                CollectionItems = Collections
+            };
+            return View(viewModel);
+        }
+        public async Task<IActionResult> AllItem(int page = 1)
+        {
+            IQueryable<Item> source = db.Items.Include(x => x.CollectionItems);
+            var count = await source.CountAsync();
+            var items = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            Page pageViewModel = new Page(count, page, pageSize);
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                Page = pageViewModel,
+                Items = items
+            };
+            return View(viewModel);
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

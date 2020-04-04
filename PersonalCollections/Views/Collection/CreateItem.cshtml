@@ -1,7 +1,7 @@
 ﻿@model PersonalCollections.Models.Item
 
 @{
-    ViewData["Title"] = "CreateItem";
+    ViewData["Title"] = Localizer["Title"];
     ViewData["Title"] = "CreateCollection";
     if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
         Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -12,7 +12,7 @@
 
     <h1>@ViewBag.Id</h1>
 
-<h4>Item</h4>
+    <h4>@Localizer["Create"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -36,6 +36,6 @@
 </div>
 
 <div>
-    <a asp-action="EditCollection" asp-route-IdCollectionItem="@IdCollectionItem">Back to List</a>
+    <a asp-action="EditCollection" asp-route-IdCollectionItem="@IdCollectionItem">@Localizer["Back"]</a>
 </div>
 

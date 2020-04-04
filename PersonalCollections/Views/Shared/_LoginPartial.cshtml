@@ -3,7 +3,7 @@
 {
     <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="text-dark fa fa-meh" id="userNickname">@User.Identity.Name</span>
+            <p class="text-dark fa fa-meh">@User.Identity.Name</p>
         </a>
 
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -37,13 +37,13 @@ else
     <li class="nav-item">
         <a asp-action="register" asp-controller="account" class="nav-link">
             <i class="fa fa-registered fa-fw"></i>
-            @*<span>@Localizer["Regist"]</span>*@
+            <span>@Localizer["Regist"]</span>
         </a>
     </li>
     <li class="nav-item">
         <a asp-action="login" asp-controller="account" class="nav-link">
             <i class="fa fa-sign-in-alt fa-fw"></i>
-            @*<span>@Localizer["Login"]</span>*@
+            <span>@Localizer["Login"]</span>
         </a>
     </li>
 }

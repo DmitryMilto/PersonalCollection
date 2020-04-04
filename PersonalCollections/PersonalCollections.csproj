@@ -26,7 +26,6 @@
   <ItemGroup>
     <Folder Include="Resources\Controllers\" />
     <Folder Include="Resources\Models\" />
-    <Folder Include="Resources\Views\Collection\" />
     <Folder Include="wwwroot\Files\" />
   </ItemGroup>
 

@@ -10,25 +10,63 @@
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-    <script id="dsq-count-scr" src="//https-localhost-44339.disqus.com/count.js" async></script>
 </head>
 
 <body id="page-top">
-    <div id="wrapper">
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="container">
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <ul class="navbar-nav ml-auto">
-                        @await Html.PartialAsync("_SelectLanguagePartial")
-                        <div class="topbar-divider d-none d-sm-block"></div>
-                        <partial name="_LoginPartial" />
-                    </ul>
-                </nav>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-gradient-dark fixed-top">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">Perconal Collection</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a asp-controller="Home" asp-action="Index" class="nav-link " >
+                            <i class="fa fa-home"></i>
+                            @Localizer["Home"]
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="Home" asp-action="AllCollection" class="nav-link">
+                            <i class="fa fa-book"></i>
+                            @Localizer["Collection"]
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="Home" asp-action="AllItem" class="nav-link">
+                            <i class="fa fa-stream"></i>
+                            @Localizer["Item"]
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                </ul>
+                @await Html.PartialAsync("_SelectLanguagePartial")
+                <ul class="navbar-nav text-right">
+                    <partial name="_LoginPartial" />
+                </ul>
+            </div>
+            
+        </nav>
+    </header>
+    <div id="wrapper">
+        <div id="content-wrapper" class="d-flex flex-column bg-gradient-light mt-5">
+            <div id="container" class="mt-3">
                 <div class="container-fluid">
                     @RenderBody()
                 </div>
-                <footer class="sticky-footer bg-white">
+                <footer class="sticky-footer bg-white mt-3">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
                             <span>Perconal Collection &copy; Website 2020</span>
