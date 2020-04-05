@@ -18,35 +18,31 @@
 
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                    <div class="row">
-                        <div class="col">
-                            <form asp-action="EditUser" asp-controller="Manage">
-                                <div asp-validation-summary="All" class="text-danger"></div>
-                                <div class="form-group">
-                                    <input type="hidden" asp-for="Id" />
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="LastName" class="control-label">@Localizer["FirstName"]</label>
-                                    <input type="text" asp-for="LastName" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="FirstName" class="control-label">@Localizer["LastName"]</label>
-                                    <input type="text" asp-for="FirstName" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="City" class="control-label">@Localizer["City"]</label>
-                                    <input type="text" asp-for="City" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="DateBirth" class="control-label">@Localizer["Date"]</label>
-                                    <input type="date" asp-for="DateBirth" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="@Localizer["Edit"]" class="btn btn-outline-secondary" />
-                                </div>
-                            </form>
+                    <form asp-action="EditUser" asp-controller="Manage">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <input type="hidden" asp-for="Id" />
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label asp-for="LastName" class="control-label">@Localizer["FirstName"]</label>
+                            <input type="text" asp-for="LastName" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FirstName" class="control-label">@Localizer["LastName"]</label>
+                            <input type="text" asp-for="FirstName" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="City" class="control-label">@Localizer["City"]</label>
+                            <input type="text" asp-for="City" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DateBirth" class="control-label">@Localizer["Date"]</label>
+                            <input type="date" asp-for="DateBirth" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="@Localizer["Edit"]" class="btn btn-outline-secondary" />
+                        </div>
+                    </form>
                 </div>
             </div>
 

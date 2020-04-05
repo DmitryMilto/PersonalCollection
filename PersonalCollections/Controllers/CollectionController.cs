@@ -57,8 +57,12 @@ namespace PersonalCollections.Controllers
         }
         public IActionResult CreateItem(int id)
         {
-            ViewBag.Id = id;
             return View();
+        }
+        public async Task<IActionResult> EditItem(int id)
+        {
+            Item item = await db.Items.Include(x => x.CollectionItems).FirstOrDefaultAsync(x => x.IdItem == id);
+            return View(item);
         }
         [HttpPost]
         public async Task<IActionResult> CreateItem(Item item, int IdCollectionItem)
@@ -69,6 +73,15 @@ namespace PersonalCollections.Controllers
             db.Items.Add(item);
             await db.SaveChangesAsync();
             return RedirectToAction("EditCollection", new { id = IdCollectionItem});
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditItem(Item item)
+        {
+            CollectionItem collection = await db.CollectionItems.FirstOrDefaultAsync(p => p.IdCollection == item.IdCollectionItem);
+            item.CollectionItems = collection;
+            db.Items.Update(item);
+            await db.SaveChangesAsync();
+            return RedirectToAction("EditCollection", new { id = item.IdCollectionItem });
         }
         public async Task<IActionResult> DetailsItem(int id)
         {
@@ -165,7 +178,6 @@ namespace PersonalCollections.Controllers
         }
         public async Task<IActionResult> LikeUp(int id)
         {
-            //Like like = await db.Likes.FirstOrDefaultAsync(x => x.IdItem == id && x.UserName == User.Identity.Name);
             Like like = new Like
             {
                 IdItem = id,
@@ -191,6 +203,27 @@ namespace PersonalCollections.Controllers
             ViewBag.Id = id;
             var collection = db.CollectionItems.Where(x => x.IdUser == id).Include(x => x.Themas).Include(x => x.Items);
             return View(collection);
+        }
+        public async Task<IActionResult> DeleteItem(int id)
+        {
+            
+            Item item = await db.Items.Include(x => x.Likes).FirstOrDefaultAsync(x => x.IdItem == id);
+            int idCollection = item.IdCollectionItem;
+            if (item != null)
+            {
+                if (item.Likes != null)
+                {
+                    foreach (Like like in item.Likes)
+                    {
+                        db.Likes.Remove(like);
+                    }
+                }
+                TempData["messageDelete"] = String.Format("Item {0} delete", item.NameItem);
+                db.Items.Remove(item);
+                await db.SaveChangesAsync();
+            }
+            
+            return RedirectToAction("EditCollection", new { id = idCollection });
         }
     }
 }

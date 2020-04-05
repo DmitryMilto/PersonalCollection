@@ -3,10 +3,12 @@
     ViewData["Title"] = "ListCollection";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">@Localizer["List"]</h1>
-    <a asp-controller="collection" asp-action="CreateCollection" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-    <i class="fas fa-download fa-sm text-white-50"></i>@Localizer["Add"]</a>
+    <h1 class="h3 mb-0 text-gray">@Localizer["List"]</h1>
+    <a asp-controller="collection" asp-action="CreateCollection" class="d-none btn d-inline btn-sm btn-primary shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i>@Localizer["Add"]
+    </a>
 </div>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -26,10 +28,10 @@
                 </thead>
                 <tfoot>
                     <tr>
-                        <td>Название</td>
-                        <td>Описание</td>
-                        <td>Тема</td>
-                        <td>Количество</td>
+                        <td>@Localizer["Name"]</td>
+                        <td>@Localizer["Description"]</td>
+                        <td>@Localizer["Thema"]</td>
+                        <td>@Localizer["Count"]</td>
                         <td></td>
                     </tr>
                 </tfoot>

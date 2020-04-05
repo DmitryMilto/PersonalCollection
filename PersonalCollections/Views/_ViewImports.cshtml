@@ -7,7 +7,8 @@
 @using PersonalCollections.Models.Admin;
 @using PersonalCollections.Models.Account;
 @using Microsoft.AspNetCore.Mvc.Localization
-
+@using System.Globalization;
 
 @inject IViewLocalizer Localizer
 @inject SignInManager<User> SignInManager
+@inject UserManager<User> _userManager

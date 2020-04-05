@@ -1,79 +1,77 @@
-﻿@model PersonalCollections.Models.CollectionItem
+﻿@model CollectionItem
 
 @{
-    ViewData["Title"] = Localizer["Title"] + Model.NameCollection;
-    ViewData["Title"] = "CreateCollection";
+    ViewData["Title"] = Model.NameCollection;
     if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
         Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     else
         Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Image = Model.Image;
 }
-
-    <h4>@Localizer["Info"] @Model.NameCollection</h4>
-<hr />
-<div class="row">
-    <div class="col-8">
-        <form asp-action="EditCollection" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdCollection" />
-            <div class="form-group d-block">
-                <input asp-for="IdUser" type="hidden" />
-            </div>
-            <div class="form-group d-block">
-                <label asp-for="NameCollection" class="control-label"></label>
-                <input asp-for="NameCollection" class="form-control" />
-                <span asp-validation-for="NameCollection" class="text-danger"></span>
-            </div>
-            <div class="form-group d-block">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group d-block">
-                @Html.DropDownListFor(model => model.IdThema, ViewBag.Thema as SelectList, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                <input asp-for="Image" class="form-control" disabled />
-                <input type="file" name="uploadedFile" /><br>
-                @if (Model.Image == null)
-                {
-                    <div class="form-control-static">@Localizer["Image"] Нет изображения</div>
-                }
-                else
-                {
-                    <img class="img-thumbnail img-fluid" width="150" height="150"
-                         src="@Url.Content(Model.Image)" />
-                }
-            </div>
-
-            <div class="form-group d-block">
-                <input asp-route-Image="@Model.Image" type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+@if (TempData["messageDelete"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>@TempData["messageDelete"]</strong>
     </div>
-    <div class="col-4">
-        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+}
+<h4>
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+    {
+        <a asp-controller="admin" asp-action="ListCollection" class="fa fa-arrow-left"></a>
+    }
+    else
+    {
+        <a asp-controller="manage" asp-action="Index" class="fa fa-arrow-left"></a>
+    }
+    @Localizer["Info"] @Model.NameCollection
+</h4>
+<hr />
+<form asp-action="EditCollection" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="IdCollection" />
+    <div class="form-group d-block">
+        <input asp-for="IdUser" type="hidden" />
+    </div>
+    <div class="form-group d-block">
+        <label asp-for="NameCollection" class="control-label"></label>
+        <input asp-for="NameCollection" class="form-control" />
+        <span asp-validation-for="NameCollection" class="text-danger"></span>
+    </div>
+    <div class="form-group d-block">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group d-block">
+        @Html.DropDownListFor(model => model.IdThema, ViewBag.Thema as SelectList, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <input asp-for="Image" class="form-control" type="hidden" />
+        <input type="file" name="uploadedFile" /><br>
+        @if (Model.Image == null)
         {
-            <a asp-controller="admin" asp-action="ListCollection">
-                @Localizer["Back"]
-            </a>
+            <div class="form-control-static">@Localizer["Image"]</div>
         }
         else
         {
-            <a asp-controller="manage" asp-action="Index">
-                @Localizer["Back"]
-            </a>
+            <img class="img-thumbnail img-fluid" width="650"
+                 src="@Url.Content(Model.Image)" />
         }
     </div>
+
+    <div class="form-group d-block">
+        <input asp-route-Image="@Model.Image" type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+<hr />
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray">@Localizer["List"]</h1>
+    <a asp-action="CreateItem" asp-route-id="@Model.IdCollection" class="d-none btn d-inline btn-sm btn-primary shadow-sm">
+        <i class="fas fa-plus fa-sm text-white-50"></i>@Localizer["Item"]
+    </a>
 </div>
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List Item's</h6>
-        <a asp-action="CreateItem" asp-route-id="@Model.IdCollection" class="d-none d-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus fa-sm text-white-50"></i>@Localizer["Item"]
-        </a>
-    </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -110,8 +108,8 @@
                                 @Html.DisplayFor(modelItem => item.Description)
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.IdItem" class="fa fa-edit">@Localizer["Edit"]</a>
-                                <a asp-action="Delete" asp-route-id="@item.IdItem" type="submit" class="fa fa-trash">@Localizer["Delete"]</a>
+                                <a asp-action="EditItem" asp-route-id="@item.IdItem" class="fa fa-edit">@Localizer["Edit"]</a>
+                                <a asp-action="DeleteItem" asp-route-id="@item.IdItem" type="submit" class="fa fa-trash">@Localizer["Delete"]</a>
                             </td>
                         </tr>
                     }

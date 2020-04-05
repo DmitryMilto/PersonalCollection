@@ -3,48 +3,44 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="card mt-5">
-    <div class="card-body">
-        <div class="d-md-flex">
-            <div class="nav flex-column nav-pills mr-4 mb-3 mb-sm-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a asp-action="Index" asp-controller="Manage" asp-route-id="@Model.Id" class="nav-link active" aria-controls="v-pills-home">@Localizer["Home"]</a>
-                <a asp-action="CreateCollection" asp-controller="Collection" class="nav-link" aria-controls="v-pills-home">@Localizer["Add"]</a>
-                <a asp-action="EditUser" asp-controller="Manage" asp-route-id="@Model.Id" class="nav-link" aria-controls="v-pills-home">@Localizer["Setting"]</a>
-                <a asp-action="UserCollection" asp-controller="Collection" asp-route-id="@Model.Id" class="nav-link" aria-controls="v-pills-home">@Localizer["Collection"]</a>
+    <div class="card mt-5">
+        <div class="card-body">
+            <div class="d-md-flex">
+                <div class="nav flex-column nav-pills mr-4 mb-3 mb-sm-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a asp-action="Index" asp-controller="Manage" asp-route-id="@Model.Id" class="nav-link active" aria-controls="v-pills-home">@Localizer["Home"]</a>
+                    <a asp-action="CreateCollection" asp-controller="Collection" class="nav-link" aria-controls="v-pills-home">@Localizer["Add"]</a>
+                    <a asp-action="EditUser" asp-controller="Manage" asp-route-id="@Model.Id" class="nav-link" aria-controls="v-pills-home">@Localizer["Setting"]</a>
+                    <a asp-action="UserCollection" asp-controller="Collection" asp-route-id="@Model.Id" class="nav-link" aria-controls="v-pills-home">@Localizer["Collection"]</a>
 
-            </div>
-            <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="card card-bordered">
-                                <img src="https://klike.net/uploads/posts/2019-06/medium/1560661366_2.jpg"
-                                     height=350 />
+                </div>
+                <div class="tab-content container">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <div class="align-items-center justify-content-between mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h2 class="fa fa-mask m-0 font-weight-bold text-primary"> @Model.LastName @Model.FirstName</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-md-flex">
+                                        <div class="nav flex-column nav-pills mr-4 mb-3 mb-sm-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                            <img src="https://ru.seaicons.com/wp-content/uploads/2015/08/blue-user-icon.png" />
+                                        </div>
+                                        <div class="tab-content container">
+                                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                                <div class="align-items-center justify-content-between mb-4">
+                                                    <h3>@Localizer["Email"]: @Model.Email</h3>
+                                                    <h3>@Localizer["City"]: @Model.City</h3>
+                                                    <h3>@Localizer["Register"]: @Model.DateRegistration.ToLongDateString()</h3>
+                                                    <h3>@Localizer["Date"]: @Model.DateBirth.ToLongDateString()</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <ul>
-                                <li>
-                                    @Model.LastName
-                                </li>
-                                <li>
-                                    @Model.FirstName
-                                </li>
-                                <li>
-                                    @Model.City
-                                </li>
-                                <li>
-                                    @Model.Email
-                                </li>
-                                <li>
-                                    @Model.DateBirth
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
