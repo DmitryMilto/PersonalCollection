@@ -74,6 +74,40 @@ namespace PersonalCollections.Controllers
             }
             return RedirectToAction("ListUsers");
         }
+        public async Task<IActionResult> AppointAdmin(string id)
+        {
+            IdentityResult result = null;
+            var user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                result = await _userManager.RemoveFromRoleAsync(user, "User");
+                if (result.Succeeded)
+                {
+                    result = await _userManager.UpdateAsync(user);
+                    result = await _userManager.AddToRoleAsync(user, "Admin");
+                    if (result.Succeeded)
+                        return RedirectToAction("ListUsers");
+                }
+            }
+            return RedirectToAction("ListUsers");
+        }
+        public async Task<IActionResult> TakeAdmin(string id)
+        {
+            IdentityResult result = null;
+            var user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                result = await _userManager.RemoveFromRoleAsync(user, "Admin");
+                if (result.Succeeded)
+                {
+                    result = await _userManager.UpdateAsync(user);
+                    result = await _userManager.AddToRoleAsync(user, "User");
+                    if (result.Succeeded)
+                        return RedirectToAction("ListUsers");
+                }
+            }
+            return RedirectToAction("ListUsers");
+        }
         public async Task<IActionResult> DeleteUser(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
@@ -104,6 +138,33 @@ namespace PersonalCollections.Controllers
         {
             IQueryable<CollectionItem> users = db.CollectionItems.Include(x => x.Themas).Include(x => x.Items);
             return View(await users.ToListAsync());
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+            Thema thema = await db.Themas.Include(x => x.CollectionItems).FirstOrDefaultAsync(x => x.IdThema == id);
+            foreach (CollectionItem collection in thema.CollectionItems)
+            {
+                CollectionItem collectionItem = await db.CollectionItems.Include(x => x.Items).FirstOrDefaultAsync(x => x.IdCollection == collection.IdCollection);
+                if (collectionItem != null)
+                {
+                    foreach (Item item in collection.Items)
+                    {
+                        Item item1 = await db.Items.Include(x => x.Likes).FirstOrDefaultAsync(x => x.IdItem == item.IdItem);
+                        if (item1 != null)
+                        {
+                            foreach (Like like in item1.Likes)
+                            {
+                                db.Likes.Remove(like);
+                            }
+                            db.Items.Remove(item1);
+                        }
+                    }
+                    db.CollectionItems.Remove(collection);
+                }
+            }
+            db.Themas.Remove(thema);
+            await db.SaveChangesAsync();
+            return RedirectToAction("ListThemas");
         }
     }
 }

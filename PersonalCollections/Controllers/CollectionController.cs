@@ -57,6 +57,7 @@ namespace PersonalCollections.Controllers
         }
         public IActionResult CreateItem(int id)
         {
+            ViewBag.Id = id;
             return View();
         }
         public async Task<IActionResult> EditItem(int id)

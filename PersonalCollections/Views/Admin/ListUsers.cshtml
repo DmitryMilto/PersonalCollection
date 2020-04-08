@@ -20,6 +20,13 @@
                         <a asp-controller="Manage" asp-action="Index" asp-route-id="@user.Id" class="btn btn-info btn-circle">
                             <i class="fas fa-info-circle"></i>
                         </a>
+
+                        <a asp-controller="Admin" asp-action="AppointAdmin" asp-route-id="@user.Id" type="submit" class="btn btn-warning btn-circle">
+                            <i class="fas fa-user-alt"></i>
+                        </a>
+                        <a asp-controller="Admin" asp-action="TakeAdmin" asp-route-id="@user.Id" type="submit" class="btn btn-danger btn-circle">
+                            <i class="fas fa-user-alt-slash"></i>
+                        </a>
                         @if (user.Status)
                         {
                             <a asp-controller="Admin" asp-action="BlockUser" asp-route-id="@user.Id" type="submit" class="btn btn-warning btn-circle">

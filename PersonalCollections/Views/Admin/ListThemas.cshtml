@@ -54,7 +54,7 @@
                             <a asp-action="Edit" asp-route-id="@item.IdThema">@Localizer["Edit"]</a>
                         </td>
                         <td class="text-center">
-                            <a asp-action="Delete" asp-route-id="@item.IdThema">@Localizer["Delete"]</a>
+                            <a asp-controller="Admin" asp-action="Delete" asp-route-id="@item.IdThema" type="submit">@Localizer["Delete"]</a>
                         </td>
                     </tr>
                     }

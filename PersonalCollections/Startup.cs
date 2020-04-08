@@ -46,13 +46,13 @@ namespace PersonalCollections
             services.AddAuthentication()
         .AddGoogle(options =>
         {
-            options.ClientId = "358275805280-3qi422vjb1bac7akuqrkgov2es953q7s.apps.googleusercontent.com";
-            options.ClientSecret = "mUNZQXKMNYmXSLM6oA-7jj2E";
+            options.ClientId = "";
+            options.ClientSecret = "";
         })
         .AddFacebook(options =>
         {
-            options.AppId = "222514225628136";
-            options.AppSecret = "2a3ae0677afa29090410e9fb086a9ca4";
+            options.AppId = "";
+            options.AppSecret = "";
         });
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
